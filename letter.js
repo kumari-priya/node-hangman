@@ -1,13 +1,12 @@
-class Letter {
-  constructor(letter) {
-    this.letter = letter;
+let Letter = (letter) => {
+  this.letter = letter;
+  this.gussed = false;
+  let blankSpace = (letter) =>{
+    return '_'
   }
-  replace(){
-
+  let replace = (letter) =>{
+    this.gussed = true;
   }
-  blankSpace(){
+};
 
-  }
-}
-
-export default Letter;
+module.exports = Letter;
