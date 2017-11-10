@@ -45,11 +45,11 @@ function Game() {
     console.log(this.objWord.displayWord);
     // user gussed the word right
     if (this.objWord.word === this.objWord.displayWord) {
-      console.log('You Won! Next Word!')
+      console.log('You Won! Guess the next word!')
       this.play();
       // user ran out of attempts
     } else if (this.objWord.attempts == 0) {
-      console.log('You Lost! Next Word!')
+      console.log('You Lost! Guess the next word!')
       this.play();
       // user has attempts left
     } else {
