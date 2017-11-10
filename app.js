@@ -1,19 +1,63 @@
-const Word = require('./word') ;
+// require prompt module to get user input
+const prompt = require('prompt');
+// require the word module
+const Word = require('./word');
 
-let Game = (words,letter,attempts,reset) => {
-  this.words = ['SQL','Javasript','JQuery','Bootstrap','Ruby on Rails','Python Django','Angular','Node','React'];
+function Game() {
+  this.words = ['SQL', 'Javasript', 'JQuery', 'Bootstrap', 'Ruby', 'Python', 'Angular', 'Node', 'React'];
   this.index = 0;
-  this.letter = letter;
-  this.attempts = attempts;
-  this.reset = reset;
+  this.objWord;
+  this.showWord;
 
-  let checkLetter = () =>{
-
+//prompt function
+  this.promptInput = () => {
+    let objThis = this;
+    let schema = {
+      properties: {
+        letter: {
+          description: 'Guess a letter',
+          type: 'string',
+          pattern: /^\w$/,
+          message: 'You must enter only one letter at a time',
+          required: true,
+        }
+      }
+    };
+    prompt.start();
+    prompt.get(schema, function(err, result) {
+      objThis.checkLetter(result.letter);
+    });
   }
 
-  let nextWord = () =>{
-
+// start the game
+  this.play = () => {
+    if (this.index == this.words.length - 1) this.index = 0;
+    this.objWord = new Word(this.words[this.index]);
+    this.objWord.blankSpace(this.words[this.index]);
+    console.log(this.objWord.displayWord);
+    this.index++;
+    this.promptInput();
   }
 
+// check the letter for match
+  this.checkLetter = (letter) => {
+    this.showWord = this.objWord.check(letter);
+    console.log(this.objWord.displayWord);
+    // user gussed the word right
+    if (this.objWord.word === this.objWord.displayWord) {
+      console.log('You Won! Next Word!')
+      this.play();
+      // user ran out of attempts
+    } else if (this.objWord.attempts == 0) {
+      console.log('You Lost! Next Word!')
+      this.play();
+      // user has attempts left
+    } else {
+      this.promptInput();
+    }
+  }
+}
 
-};
+let objGame = new Game();
+// start the game for the first time
+objGame.play();
