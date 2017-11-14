@@ -1,1 +1,1 @@
-# node-hangman
+# node-hangman-homework
